@@ -19929,13 +19929,21 @@ async function fetchWebhookDeliveriesSince(lastWebhookRedeliveryTime, repoOwner,
     return deliveries;
 }
 async function getVariable(lastRedeliveryVariable, repoOwner, repoName, octokit) {
-    const response = await octokit.rest.actions.getRepoVariable({
-        owner: repoOwner,
-        repo: repoName,
-        name: lastRedeliveryVariable
-    });
-    const value = response.data.value;
-    return value;
+    try {
+        const response = await octokit.rest.actions.getRepoVariable({
+            owner: repoOwner,
+            repo: repoName,
+            name: lastRedeliveryVariable
+        });
+        const value = response.data.value;
+        return value;
+    }
+    catch (error) {
+        if (error.status === 404) {
+            return undefined;
+        }
+        throw error;
+    }
 }
 async function updateVariable(variableName, value, variableExists, repoOwner, repoName, octokit) {
     if (variableExists) {

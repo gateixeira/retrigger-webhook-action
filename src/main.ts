@@ -185,9 +185,9 @@ async function getVariable(
     return value
   } catch (error) {
     if ((error as { status: number }).status === 404) {
-      return undefined;
+      return undefined
     }
-    throw error;
+    throw error
   }
 }
 
