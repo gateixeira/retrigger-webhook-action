@@ -52,12 +52,17 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Test Local Action
-        id: test-action
-        uses: ./
+      # This step sets up Node.js. The script that this workflow will run uses Node.js.
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          milliseconds: 1000
+          node-version: '20.x'
 
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+      - name: Run script
+        env:
+          token: ${{ secrets.PAT_TOKEN }}
+          repo: ${{ github.event.repository.name }}
+          owner: ${{ github.repository_owner }}
+          # webhook_id: 'YOUR_HOOK_ID'
+          last_redelivery_variable_name: 'LAST_REDELIVERY'
+        uses: ./
