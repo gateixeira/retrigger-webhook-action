@@ -28,7 +28,7 @@ jobs:
           node-version: '20.x'
 
       - name: Run script
-        env:
+        with:
           token: ${{ secrets.PAT_TOKEN }}
           repo: ${{ github.event.repository.name }}
           owner: ${{ github.repository_owner }}
