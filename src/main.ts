@@ -56,9 +56,11 @@ export async function run(): Promise<void> {
               repo,
               hook_id: Number(webhookId)
             })
-          ).data
+          )?.data
         ]
-      : (await octokit.rest.repos.listWebhooks({ owner, repo })).data
+      : (await octokit.rest.repos.listWebhooks({ owner, repo }))?.data
+
+    if (!webhooks) throw new Error('No webhooks found')
 
     const lastStoredRedeliveryTime = await getVariable(
       lastRedeliveryVariable,
