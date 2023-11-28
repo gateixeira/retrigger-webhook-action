@@ -1,4 +1,4 @@
-# Manage Collaborators Action
+# Retrigger Webhook Action
 
 ![Check Dist/](https://github.com/gateixeira/retrigger-webhook-action/workflows/Check%20Dist%2F/badge.svg)
 ![CodeQL](https://github.com/gateixeira/retrigger-webhook-action/workflows/CodeQL/badge.svg)
