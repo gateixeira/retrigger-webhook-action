@@ -22,6 +22,7 @@ It will look for the provided variable in the repository to fetch when the redel
 | `owner`                         | Owner of the repository where the webhook is configured.                                       | `string` | `true`   | `N/A`   |
 | `last_redelivery_variable_name` | The name of the variable that will store the last redelivery timestamp.                        | `string` | `true`   | `N/A`   |
 | `webhook_id`                    | The ID to filter for a specific webhook.                                                       | `string` | `false`  | `N/A`   |
+| `base_url`                      | The base URL for an Enterprise Server instance.                                                | `string` | `false`  | `N/A`   |
 
 Keep in mind that `GITHUB_TOKEN` does not have sufficient permissions to redeliver webhooks. For fine-grained personal access tokens, grant the token:
 - Access to the repository where the webhook was created

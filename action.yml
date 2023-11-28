@@ -24,6 +24,9 @@ inputs:
   webhook_id:
     description: 'The ID to filter for a specific webhook'
     required: false
+  base_url:
+    description: 'The base URL for an Enterprise Server instance'
+    required: false
 runs:
   using: node20
   main: dist/index.js

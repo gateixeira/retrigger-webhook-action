@@ -35,11 +35,13 @@ export async function run(): Promise<void> {
     const lastRedeliveryVariable =
       getInput('last_redelivery_variable_name') ||
       process.env.LAST_REDELIVERY_VARIABLE_NAME
+    const baseUrl = getInput('base_url') || process.env.BASE_URL
 
     debug(`owner: ${owner}`)
     debug(`repo: ${repo}`)
     debug(`webhookId: ${webhookId}`)
     debug(`lastRedeliveryVariable: ${lastRedeliveryVariable}`)
+    debug(`baseUrl: ${baseUrl}`)
 
     if (!token) throw new Error('No token provided')
     if (!owner) throw new Error('No owner provided')
@@ -47,7 +49,7 @@ export async function run(): Promise<void> {
     if (!lastRedeliveryVariable)
       throw new Error('No lastRedeliveryVariable provided')
 
-    const octokit = new Octokit({ auth: token })
+    const octokit = new Octokit({ auth: token, baseUrl })
     const webhooks = webhookId
       ? [
           (
