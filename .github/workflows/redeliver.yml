@@ -1,0 +1,37 @@
+#
+name: Redeliver failed webhook deliveries
+
+# This workflow runs every 6 hours or when manually triggered.
+on:
+#   schedule:
+#     - cron: '20 */6 * * *'
+  workflow_dispatch:
+
+# This workflow will use the built in `GITHUB_TOKEN` to check out the repository contents. This grants `GITHUB_TOKEN` permission to do that.
+permissions:
+  contents: read
+
+#
+jobs:
+  redeliver-failed-deliveries:
+    name: Redeliver failed deliveries
+    runs-on: ubuntu-latest
+    steps:
+      # This workflow will run a script that is stored in the repository. This step checks out the repository contents so that the workflow can access the script.
+      - name: Check out repo content
+        uses: actions/checkout@v4
+
+      # This step sets up Node.js. The script that this workflow will run uses Node.js.
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Run script
+        env:
+          token: ${{ secrets.PAT_TOKEN }}
+          repo: ${{ github.event.repository.name }}
+          owner: ${{ github.repository_owner }}
+          # webhook_id: 'YOUR_HOOK_ID'
+          last_redelivery_variable_name: 'LAST_REDELIVERY'
+        uses: ./
