@@ -19842,10 +19842,12 @@ async function run() {
         const webhookId = (0, core_1.getInput)('webhook_id') || process.env.WEBHOOK_ID;
         const lastRedeliveryVariable = (0, core_1.getInput)('last_redelivery_variable_name') ||
             process.env.LAST_REDELIVERY_VARIABLE_NAME;
+        const baseUrl = (0, core_1.getInput)('base_url') || process.env.BASE_URL;
         (0, core_1.debug)(`owner: ${owner}`);
         (0, core_1.debug)(`repo: ${repo}`);
         (0, core_1.debug)(`webhookId: ${webhookId}`);
         (0, core_1.debug)(`lastRedeliveryVariable: ${lastRedeliveryVariable}`);
+        (0, core_1.debug)(`baseUrl: ${baseUrl}`);
         if (!token)
             throw new Error('No token provided');
         if (!owner)
@@ -19854,7 +19856,7 @@ async function run() {
             throw new Error('No repo provided');
         if (!lastRedeliveryVariable)
             throw new Error('No lastRedeliveryVariable provided');
-        const octokit = new octokit_1.Octokit({ auth: token });
+        const octokit = new octokit_1.Octokit({ auth: token, baseUrl });
         const webhooks = webhookId
             ? [
                 (await octokit.rest.repos.getWebhook({
