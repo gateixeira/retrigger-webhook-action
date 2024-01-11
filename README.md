@@ -40,9 +40,9 @@ Add the following snippet to an existing workflow file
       - name: Run redelivery
         env:
           token: ${{ secrets.PAT_TOKEN }}
-          owner: ${{ github.event.repository.name }}
-          repo: ${{ github.repository_owner }}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
           # webhook_id: 'YOUR_HOOK_ID'
           last_redelivery_variable_name: 'LAST_REDELIVERY'
-        uses: ./
+        uses: gateixeira/retrigger-webhook-action@main
 ```
